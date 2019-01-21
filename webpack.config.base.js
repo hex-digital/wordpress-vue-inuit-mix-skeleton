@@ -3,7 +3,7 @@ const path = require('path');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
-const SVGSpritemapPlugin = require('svg-spritemap-webpack-plugin');
+// const SVGSpritemapPlugin = require('svg-spritemap-webpack-plugin');
 /* eslint-enable import/no-extraneous-dependencies */
 
 const resourcePath = 'resources';
@@ -32,11 +32,11 @@ module.exports = {
             to: `${buildPath}/img`,
             test: /\.(jpe?g|png|gif|svg)$/i,
         }]),
-        new SVGSpritemapPlugin({
-            src:      `${resourcePath}/sprites/**/*.svg`,
-            filename: `${buildPath}/sprites/sprites.svg`,
-            prefix:   'icon-',
-            svgo:     { removeTitle: true },
-        }),
+        // new SVGSpritemapPlugin({
+        //     src:      `${resourcePath}/sprites/**/*.svg`,
+        //     filename: `${buildPath}/sprites/sprites.svg`,
+        //     prefix:   'icon-',
+        //     svgo:     { removeTitle: true },
+        // }),
     ],
 };

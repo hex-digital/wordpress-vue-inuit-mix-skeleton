@@ -1,6 +1,6 @@
 {
-  "name": "skeleton-theme",
-  "repository": "git@github.com:hex-digital/skeleton.git",
+  "name": "wordpress-vue-inuit-mix-skeleton-theme",
+  "repository": "git@github.com:hex-digital/wordpress-vue-inuit-mix-skeleton.git",
   "version": "1.0.2",
   "description": "Skeleton Theme to give a jump start into a bespoke WordPress theme",
   "main": "webpack.mix.js",
@@ -51,9 +51,12 @@
     "jest": "^23.6.0",
     "jest-serializer-vue": "^2.0.2",
     "jest-transform-stub": "^1.0.0",
-    "laravel-mix": "^2.1.10",
+    "laravel-mix": "^4.0.14",
     "purify-css": "^1.2.5",
     "purifycss-webpack": "^0.7.0",
+    "resolve-url-loader": "2.3.1",
+    "sass": "^1.16.1",
+    "sass-loader": "7.*",
     "sass-resources-loader": "^2.0.0",
     "stylelint": "^9.1.3",
     "stylelint-order": "^2.0.0",
@@ -65,5 +68,10 @@
     "vue-template-compiler": "^2.5.22",
     "webpack-bundle-analyzer": "^3.0.3",
     "webpack-shell-plugin": "^0.5.0"
-  }
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 8"
+  ]
 }
