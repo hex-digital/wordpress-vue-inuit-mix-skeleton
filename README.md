@@ -7,7 +7,7 @@
 
 <p align="center">
   <a href="https://github.com/hex-digital/wordpress-vue-inuit-mix-skeleton/releases">
-    <img src="https://img.shields.io/badge/version-2.1.0-green.svg?style=flat-square" alt="Version 2.1.0">
+    <img src="https://img.shields.io/badge/version-0.0.9-green.svg?style=flat-square" alt="Version 0.0.9">
   </a>
 </p>
 
@@ -92,8 +92,8 @@ in below code before running it)
     git remote add origin git@github.com:hex-digital/{handle}.git
     git checkout -b master
     git add .
-    git commit -m "Initial commit from WP-vue-inuit-mix skeleton theme v2.1.0"
-    git tag -a v0.0.1 -m "Initial commit from WP-vue-inuit-mix skeleton theme v2.1.0"
+    git commit -m "Initial commit from WP-vue-inuit-mix skeleton theme v0.0.9"
+    git tag -a v0.0.1 -m "Initial commit from WP-vue-inuit-mix skeleton theme v0.0.9"
     git push -u origin master --follow-tags
     git checkout -b development
     git push -u origin development

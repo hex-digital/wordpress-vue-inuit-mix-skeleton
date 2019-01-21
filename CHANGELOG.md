@@ -6,6 +6,20 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [0.0.9] - 2018-05-09
+### New features
+- Add Travis support for linting and running production webpack
+- Add Vue, Vuex
+- Create directory structure for Vue
+- Add support for Jest and PHPUnit for testing
+
+### Changes
+- Fork from Wordpress Inuit Mix skeleton v2.1.0
+
+-=-=-
+BELOW IS CHANGELOG FOR FORKED WP INUIT MIX SKELETON v2.1.0
+-=-=-
+
 ## [2.1.0] - 2018-05-09
 ### Changes
 - Improve the tools.text scss file to make utilising text styles easier
