@@ -1,6 +1,7 @@
 {
   "plugins": [
-    "stylelint-scss"
+    "stylelint-scss",
+    "stylelint-order"
   ],
   "ignoreFiles": [
     "./generic/_generic.normalize.scss",
@@ -9,6 +10,7 @@
     "./test/*.scss"
   ],
   "rules": {
+    "order/properties-alphabetical-order": true,
     "scss/at-extend-no-missing-placeholder": true,
     "scss/dollar-variable-colon-space-before": "never",
     "scss/partial-no-import": true,
@@ -71,6 +73,8 @@
     "function-url-quotes": "always",
     "function-whitespace-after": "always",
 
+    "indentation": 4,
+
     "length-zero-no-unit": true,
 
     "max-empty-lines": 10,
@@ -93,7 +97,6 @@
     "no-eol-whitespace": true,
     "no-extra-semicolons": true,
     "no-missing-end-of-source-newline": true,
-    "no-unknown-animations": true,
 
     "number-leading-zero": "never",
     "number-max-precision": 7,
