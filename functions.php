@@ -343,7 +343,7 @@ function get_svg( string $symbol_name, string $role = 'img', string $class_names
 function theme_scripts(): void {
     $css_main = '/css/main.css';
     $js_manifest = '/js/manifest.js';
-    $js_main = '/js/global.js';
+    $js_main = '/js/app.js';
     $js_vendor = '/js/vendor.js';
 
     // SETUP INSTRUCTION: Uncomment and change to load fonts from fonts.net

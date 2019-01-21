@@ -11,6 +11,7 @@
   </a>
 </p>
 
+This is a spin-off of the [WordPress, Inuit, Mix skeleton theme](https://github.com/hex-digital/wordpress-inuit-mix-skeleton), and includes Vue, Vuex and Jest.
 
 Features:
 
@@ -23,6 +24,9 @@ Features:
   - Image optimisation
   - SVG Spritesheet system
 - InuitCSS v6.0.0 Framework - [View on GitHub](https://github.com/inuitcss/inuitcss)
+- Vue v2.5 - [View on GitHub](https://github.com/vuejs/vue)
+- Vuex v3.1 - [View on GitHub](https://github.com/vuejs/vuex)
+- Jest v23.6 - [View on GitHub](https://github.com/facebook/jest)
 - ACF Migrations support - [View on GitHub](https://github.com/hex-digital/acf-migrations)
 - A Changelog
 

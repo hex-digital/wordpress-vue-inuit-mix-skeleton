@@ -1,15 +1,61 @@
 {
-  "extends": "airbnb-base",
+  "extends": [
+    "airbnb-base",
+    "plugin:vue/recommended"
+  ],
+  "plugins": [
+    "jest",
+    "vue"
+  ],
   "env": {
     "browser": true,
     "commonjs": true,
     "es6": true,
-    "jquery": true,
+    "jest/globals": true
   },
   "rules": {
-    "indent": ["error", 4]
+    "class-methods-use-this": "off",
+    "key-spacing": ["error", { "mode": "minimum", "beforeColon": false, "afterColon": true }],
+    "max-len": ["error", 120, 2, {
+      "ignoreUrls": true,
+      "ignoreComments": false,
+      "ignoreRegExpLiterals": true,
+      "ignoreStrings": true,
+      "ignoreTemplateLiterals": true
+    }],
+    "indent": ["error", 4],
+    "vue/html-indent": ["error", 4],
+    "vue/html-closing-bracket-newline": ["error", {
+      "singleline": "never",
+      "multiline": "always"
+    }],
+    "no-param-reassign": ["error", {
+      "ignorePropertyModificationsFor": [
+        "state" // for Vue state mutations
+      ]
+    }],
+    "no-shadow": ["error", {
+      "allow": ["state"]
+    }],
+    "import/no-unresolved": ["allow"],
+    "import/extensions": {
+      "error": { "ignore": [ "~/"] }
+    },
+    "jest/no-disabled-tests": "warn",
+    "jest/no-focused-tests": "error",
+    "jest/no-identical-title": "error",
+    "jest/prefer-to-have-length": "warn",
+    "jest/valid-expect": "error"
   },
   "globals": {
-    "Modernizr": false
+    "Stripe": true,
+    "Modernizr": false,
+    "Vue": true,
+    "ga": true
+  },
+  "parserOptions": {
+    "parser": 'babel-eslint',
+    "ecmaVersion": 2017,
+    "sourceType": module
   }
 }
