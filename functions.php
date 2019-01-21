@@ -43,12 +43,13 @@ add_filter( 'auto_update_theme', '__return_true' );
 
 /** 0.3 ACF migration code */
 // SETUP INSTRUCTION: Uncomment if ACF is required - do ACF in acf/migations.php NOT in CMS
-//$acf_export_file = __DIR__ . '/acf/export.php';
-//if ( file_exists( $acf_export_file ) ) include $acf_export_file;
+// $acf_export_file = __DIR__ . '/acf/export.php';
+// if ( file_exists( $acf_export_file ) ) include $acf_export_file;
+// !!
 
 
 /** 0.4 Miscellaneous */
-// This global var is used for revision queries, so the array of hashes is not redefined with each function call
+// This global var is used for revision queries, so the array of hashes is not redefined with each function call.
 $revision_hash = false;
 
 
@@ -69,7 +70,7 @@ $revision_hash = false;
  *
  * @return string The name of the current environment
  */
-function get_environment() {
+function get_environment(): string {
     return getenv( 'APP_ENV' ) ?: 'production';
 }
 
@@ -78,7 +79,7 @@ function get_environment() {
  *
  * @return boolean Whether we're in a development environment
  */
-function is_development() {
+function is_development(): bool {
     return ( 'development' === get_environment() );
 }
 
@@ -87,7 +88,7 @@ function is_development() {
  *
  * @return boolean Whether we're in a staging environment
  */
-function is_staging() {
+function is_staging(): bool {
     return ( 'staging' === get_environment() );
 }
 
@@ -98,7 +99,7 @@ function is_staging() {
  *
  * @return boolean Whether we're in a production environment
  */
-function is_production() {
+function is_production(): bool {
     return ( 'production' === get_environment() );
 }
 
@@ -116,12 +117,18 @@ function is_production() {
  *
  * @return string The current revision hash
  */
-function get_revision_hash() {
+function get_revision_hash(): string {
     global $revision_hash;
     $revision_path = get_template_directory() . '/.revision';
-    if ( ! is_production() ) return '';
-    if ( ! file_exists( $revision_path ) ) return '';
-    if ( false === $revision_hash ) $revision_hash = file_get_contents( $revision_path, null, null, 0, 7 );
+
+    if ( ! is_production() || ! file_exists( $revision_path ) ) {
+        return '';
+    }
+
+    if ( false === $revision_hash ) {
+        $revision_hash = file_get_contents( $revision_path, null, null, 0, 7 );
+    }
+
     return $revision_hash;
 }
 
@@ -133,9 +140,13 @@ function get_revision_hash() {
  * modification date fom the file meta data, which will always change for every
  * file upon deployment, because deploying to containers requires an upload of
  * all assets from the repository. Only use as a last resort, and sparingly.
+ *
+ * @param string $uri The URI of the file inside the template directory.
+ * @return bool|int|string
  */
-function get_file_hash( $uri ) {
+function get_file_hash( string $uri ): string {
     $uri = get_template_directory() . $uri;
+
     return file_exists( $uri ) ? filemtime( $uri ) : '';
 }
 
@@ -150,16 +161,20 @@ function get_file_hash( $uri ) {
  * uploaded to the container), which will be incorrect. If this file does not
  * exist, the function will return an empty string.
  *
- * @param  string $uri The URI of the asset (relative to the theme directory)
+ * @param  string $uri The URI of the asset (relative to the theme directory).
  * @return string      The file revision hash
  */
-function get_commit_hash( $uri ) {
+function get_commit_hash( string $uri ): string {
     $revision = '';
     $assets_path = get_template_directory() . '/assets.json';
+
     if ( file_exists( $assets_path ) ) {
         $assets = json_decode( file_get_contents( $assets_path ), true );
-        if ( isset( $assets[$uri] ) ) $revision = substr( md5( $assets[$uri] ), 0, 7 );
+        if ( isset( $assets[ $uri ] ) ) {
+            $revision = substr( md5( $assets[ $uri ] ), 0, 7 );
+        }
     }
+
     return $revision;
 }
 
@@ -167,20 +182,25 @@ function get_commit_hash( $uri ) {
  * Returns the actual revision string for use as a query variable.
  *
  * @param  string $uri      The relative URI of the file (which is used to
- *                          display a hash specific for that file)
+ *                          display a hash specific for that file).
  * @param  string $revision The string of a desired custom revision (if not the
- *                          revision hash of the file itself)
+ *                          revision hash of the file itself).
  * @return string           The revision string which can be used as a query var
  */
-function get_revision_string( $uri = '', $revision = '' ) {
-    if ( $revision ) return $revision;
+function get_revision_string( string $uri = '', string $revision = '' ): string {
+    if ( $revision ) {
+        return $revision;
+    }
 
     if ( $uri ) {
-        if ( $revision = get_commit_hash( $uri ) ) {
+        $revision = get_commit_hash( $uri );
+        if ( $revision ) {
             return $revision;
         }
     }
+
     $revision = get_revision_hash();
+
     return $revision ?: get_file_hash( $uri );
 }
 
@@ -188,24 +208,24 @@ function get_revision_string( $uri = '', $revision = '' ) {
  * Returns the revision query that can be used directly after a URI.
  *
  * @param  string $uri      The relative URI of the file (which is used to
- *                          display a hash specific for that file)
+ *                          display a hash specific for that file).
  * @param  string $revision The string of a desired custom revision (if not the
- *                          revision hash of the file itself)
+ *                          revision hash of the file itself).
  * @return string           The revision query string which can be appended to
  *                          a URI
  */
-function get_revision_query( $uri = '', $revision = '' ) {
+function get_revision_query( string $uri = '', string $revision = '' ): string {
     return '?v=' . get_revision_string( $uri, $revision );
 }
 
 /**
  * Gets the build URI for a particular file.
  *
- * @param  string $uri The URI of the file (relative to the theme)
+ * @param  string $uri The URI of the file (relative to the theme).
  * @return string      The full build path of the URI entered (with query
  *                     strings prepended if necessary)
  */
-function get_build_uri( $uri ) {
+function get_build_uri( string $uri ): string {
     return get_build_directory_uri() . $uri . get_revision_query( $uri );
 }
 
@@ -222,26 +242,29 @@ function get_build_uri( $uri ) {
  *
  * @return string The build directory
  */
-function get_build_directory_uri() {
-   if ( 'production' === get_environment() && defined( 'WP_CDN' ) ) return WP_CDN;
-   return get_template_directory_uri() . '/build';
+function get_build_directory_uri(): string {
+    if ( 'production' === get_environment() && defined( 'WP_CDN' ) ) {
+        return WP_CDN;
+    }
+
+    return get_template_directory_uri() . '/build';
 }
 
 /**
- * Returns the absolute directory for partials for the theme
+ * Returns the absolute directory for partials for the theme.
  *
  * @return string The directory for all partials
  */
-function get_partials_directory_uri() {
+function get_partials_directory_uri(): string {
     return get_template_directory() . '/templates/partials';
 }
 
 /**
- * Returns the absolute directory for flexible content for the theme
+ * Returns the absolute directory for flexible content for the theme.
  *
  * @return string The directory for all partials
  */
-function get_flexible_content_directory_uri() {
+function get_flexible_content_directory_uri(): string {
     return get_template_directory() . '/templates/flexible';
 }
 
@@ -265,10 +288,10 @@ function get_flexible_content_directory_uri() {
  *         endif;
  *     endwhile;
  *
- * @param  string $template The name of the template
+ * @param  string $template The name of the template.
  * @return string           The absolute path of the template
  */
-function get_flexible_content_template_uri( $template ) {
+function get_flexible_content_template_uri( string $template ): string {
     $template = str_replace( '_', '-', $template );
     return get_flexible_content_directory_uri() . '/' . $template . '.php';
 }
@@ -279,12 +302,12 @@ function get_flexible_content_template_uri( $template ) {
 /**
  * Return the HTML for an SVG symbol
  *
- * @param  string        $symbol_name           The name of the symbol
- * @param  string        $role                  The role of the symbol
- * @param  string|array  $class_names Any additional class names needed
+ * @param  string       $symbol_name           The name of the symbol.
+ * @param  string       $role                  The role of the symbol.
+ * @param  string|array $class_names Any additional class names needed.
  * @return string
  */
-function get_svg( $symbol_name, $role = 'img', $class_names = '' ) {
+function get_svg( string $symbol_name, string $role = 'img', string $class_names = '' ): string {
     if ( is_array( $class_names ) ) {
         $class_names = implode( ' ', $class_names );
     }
@@ -305,40 +328,72 @@ function get_svg( $symbol_name, $role = 'img', $class_names = '' ) {
     $html .= '        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-' . $symbol_name . '"/>' . PHP_EOL;
     $html .= '    </svg>' . PHP_EOL;
     $html .= '</span>';
+
     return $html;
 }
 
 
 /** 1.4 Theme Setup */
 
-function theme_scripts() {
+/**
+ * Enqueue all base styles and scripts.
+ *
+ * @return void
+ */
+function theme_scripts(): void {
     $css_main = '/css/main.css';
     $js_manifest = '/js/manifest.js';
     $js_main = '/js/global.js';
+    $js_vendor = '/js/vendor.js';
 
     // SETUP INSTRUCTION: Uncomment and change to load fonts from fonts.net
     // wp_enqueue_script( 'fonts', '//fast.fonts.net/jsapi/cc1bfd02-cbed-4a48-93d2-d7c420db9cb6.js', [], false, false );
-    wp_enqueue_style( 'style', get_build_directory_uri() . $css_main, [],
-        get_revision_string( '/build' . $css_main ) );
-    wp_enqueue_script( 'manifest', get_build_directory_uri() . $js_manifest, [],
-        get_revision_string( '/build' . $js_manifest ), true );
-    wp_enqueue_script( 'vendor', get_build_directory_uri() . '/js/vendor.js', [], '', true );
-    wp_enqueue_script( 'global', get_build_directory_uri() . $js_main, [],
-        get_revision_string( '/build' . $js_main ), true );
+    // !!
+    wp_enqueue_style(
+        'style',
+        get_build_directory_uri() . $css_main,
+        [],
+        get_revision_string( '/build' . $css_main )
+    );
+    wp_enqueue_script(
+        'manifest',
+        get_build_directory_uri() . $js_manifest,
+        [],
+        get_revision_string( '/build' . $js_manifest ),
+        true
+    );
+    wp_enqueue_script(
+        'vendor',
+        get_build_directory_uri() . $js_vendor,
+        [],
+        // @todo Give a better revision to this. It will update each deployment
+        get_revision_string( '/build' . $js_vendor ),
+        true
+    );
+    wp_enqueue_script(
+        'global',
+        get_build_directory_uri() . $js_main,
+        [],
+        get_revision_string( '/build' . $js_main ),
+        true
+    );
 }
 
 
 /** 1.5 Theme Functions */
 
 /**
- * Return the page id based on the page slug
- * @param  string $slug Slug of page ID requested
- * @return int          ID of the requested page
+ * Return the page id based on the page slug.
+ *
+ * @param  string $slug Slug of page ID requested.
+ * @return int|false ID of the requested page
  */
-function get_page_id( $slug ) {
-    // SETUP INSTRUCTION: Add page IDs here in order to target them in code for permalinks and ACF
+function get_page_id( string $slug ): int {
+    // SETUP INSTRUCTION: Add page IDs here in order to target them in code for permalinks and ACF.
     switch ( $slug ) {
         case 'homepage':
             return 1;
     }
+
+    return false;
 }

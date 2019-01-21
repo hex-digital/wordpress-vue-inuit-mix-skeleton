@@ -8,6 +8,7 @@
  * @subpackage Skeleton Theme
  * @since 2016
  */
+
 ?><!DOCTYPE html>
 <html <? language_attributes() ?>>
     <head>

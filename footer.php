@@ -9,6 +9,7 @@
  * @subpackage Skeleton Theme
  * @since 2016
  */
+
 ?>
         <? wp_footer() ?>
     </body>
