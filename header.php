@@ -19,6 +19,8 @@
     </head>
 
     <body <? body_class() ?>>
-        <div class="u-svg-icons">
-            <? include_once 'build/sprites/sprites.svg' ?>
-        </div>
+        <? if ( file_exists( get_build_uri( '/sprites/sprites.svg' ) ) ) : ?>
+            <div class="u-svg-icons">
+                <? include_once 'build/sprites/sprites.svg' ?>
+            </div>
+        <? endif ?>
