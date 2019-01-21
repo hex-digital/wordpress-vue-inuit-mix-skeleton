@@ -2,20 +2,20 @@
   <img src="https://user-images.githubusercontent.com/2754728/37917923-9e9de498-3117-11e8-95ba-806c31c05a02.png" width="100" height="auto" alt="Hex and Webpack">
 </p>
 
-<h1 align="center">Skeleton Theme</h1>
+<h1 align="center">WP, Vue, Inuit, Mix Skeleton Theme</h1>
 <h3 align="center">A WordPress starter theme with modern frontend tools</h3>
 
 <p align="center">
-  <a href="https://github.com/hex-digital/skeleton/releases">
+  <a href="https://github.com/hex-digital/wordpress-vue-inuit-mix-skeleton/releases">
     <img src="https://img.shields.io/badge/version-2.1.0-green.svg?style=flat-square" alt="Version 2.1.0">
   </a>
 </p>
 
-This is a spin-off of the [WordPress, Inuit, Mix skeleton theme](https://github.com/hex-digital/wordpress-inuit-mix-skeleton), and includes Vue, Vuex and Jest.
+This is a spin-off of the [WordPress, Inuit, Mix skeleton theme](https://github.com/hex-digital/wordpress-vue-inuit-mix-skeleton), and includes Vue, Vuex and Jest.
 
 Features:
 
-- Webpack, via Laravel Mix - [View on GitHub](https://github.com/JeffreyWay/laravel-mix)
+- Webpack, via Laravel Mix v4.0 - [View on GitHub](https://github.com/JeffreyWay/laravel-mix)
   - SCSS concatenation and minification
   - JS concatenation and minification
   - Babel transpiling for ECMAScript 2015
@@ -71,7 +71,7 @@ Install latest wordpress using wordpress script from [github:hex-digital/tools](
 Change directory into the theme directory, and clone the repo:
 
     cd wp-content/themes/{handle}
-    git clone git@github.com:hex-digital/skeleton.git .
+    git clone git@github.com:hex-digital/wordpress-vue-inuit-mix-skeleton.git .
 
 >Ensure the line ends with a . when cloning, so that it does not create an
 extra folder.
@@ -92,8 +92,8 @@ in below code before running it)
     git remote add origin git@github.com:hex-digital/{handle}.git
     git checkout -b master
     git add .
-    git commit -m "Initial commit from skeleton theme v2.1.0"
-    git tag -a v0.0.1 -m "Initial commit from skeleton theme v2.1.0"
+    git commit -m "Initial commit from WP-vue-inuit-mix skeleton theme v2.1.0"
+    git tag -a v0.0.1 -m "Initial commit from WP-vue-inuit-mix skeleton theme v2.1.0"
     git push -u origin master --follow-tags
     git checkout -b development
     git push -u origin development
